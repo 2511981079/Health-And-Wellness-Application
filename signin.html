@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health And Wellness Applications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /*body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
+        }*/
+        body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background: #000000;
+}
+
+body::before {
+    display: none;
+}
+
+        /* Premium Background Effects */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            animation: bgShift 15s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes bgShift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        .particle:nth-child(odd) { background: rgba(255,255,255,0.15); }
+        .particle:nth-child(even) { background: rgba(120,219,255,0.2); }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(40px);
+            border-radius: 40px;
+            padding: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 35px 80px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.3),
+                0 0 0 1px rgba(255,255,255,0.05);
+            animation: cardFloat 8s ease-in-out infinite;
+            display: flex;
+            gap: 70px;
+            max-width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            animation: shine 6s infinite;
+            z-index: 0;
+        }
+
+        .login-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(-100%) rotate(45deg); }
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotateX(0deg); 
+                box-shadow: 0 35px 80px rgba(0,0,0,0.4);
+            }
+            50% { 
+                transform: translateY(-20px) rotateX(3deg); 
+                box-shadow: 0 50px 100px rgba(102, 126, 234, 0.3);
+            }
+        }
+
+        /* Left Side - Form */
+        .form-section {
+            flex: 1;
+            min-width: 400px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: headerSlide 1.5s ease-out;
+        }
+
+        @keyframes headerSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-60px) scale(0.7);
+            }
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 
+                0 20px 40px rgba(102, 126, 234, 0.4),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+            position: relative;
+            animation: logoPulse 2.5s infinite;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            background: conic-gradient(from 0deg, #667eea, #764ba2, #f093fb, #667eea);
+            border-radius: 30px;
+            z-index: -1;
+            animation: borderRotate 4s linear infinite;
+        }
+
+        @keyframes borderRotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.15) rotate(180deg); }
+        }
+
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #f0f0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            position: relative;
+            text-shadow: 0 0 30px rgba(255,255,255,0.5);
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, #667eea, #764ba2, #f093fb, transparent);
+            border-radius: 3px;
+            animation: underlineGlow 2s ease-out infinite alternate;
+        }
+
+        @keyframes underlineGlow {
+            from { 
+                width: 60px;
+                box-shadow: 0 0 10px #667eea;
+            }
+            to { 
+                width: 80px;
+                box-shadow: 0 0 25px #f093fb;
+            }
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* Input Fields */
+        .input-field {
+            position: relative;
+            margin-bottom: 35px;
+            animation: fieldSlide 1s ease-out forwards;
+        }
+
+        .input-field:nth-child(1) { animation-delay: 0.3s; }
+        .input-field:nth-child(2) { animation-delay: 0.6s; }
+
+        @keyframes fieldSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-40px) scale(0.9);
+            }
+        }
+
+        .input-wrapper {
+            position: relative;
+            background: rgba(255,255,255,0.15);
+            border-radius: 25px;
+            padding: 8px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .input-field:focus-within .input-wrapper {
+            background: rgba(255,255,255,0.25);
+            box-shadow: 
+                0 0 40px rgba(102, 126, 234, 0.5),
+                0 0 0 1px rgba(102, 126, 234, 0.3);
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        input {
+            width: 100%;
+            padding: 22px 28px 22px 80px;
+            background: transparent;
+            border: none;
+            border-radius: 20px;
+            font-size: 17px;
+            color: white;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            transition: all 0.4s ease;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .input-field:focus-within .input-icon {
+            color: #ffffff;
+            transform: translateY(-50%) scale(1.3) rotate(10deg);
+            filter: drop-shadow(0 0 10px #667eea);
+        }
+
+        /* Login Button */
+        .login-btn {
+            width: 100%;
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border: none;
+            border-radius: 30px;
+            font-size: 19px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 
+                0 20px 40px rgba(102, 126, 234, 0.4),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+            animation: btnPulse 3s infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes btnPulse {
+            0%, 100% { 
+                box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 30px 60px rgba(102, 126, 234, 0.6);
+                transform: scale(1.02);
+            }
+        }
+
+        .login-btn:hover {
+            transform: translateY(-12px) scale(1.08);
+            box-shadow: 0 40px 80px rgba(102, 126, 234, 0.6);
+        }
+
+        .login-btn:active {
+            transform: translateY(-5px) scale(1.03);
+        }
+
+        .btn-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transition: left 0.7s;
+        }
+
+        .login-btn:hover .btn-shine {
+            left: 100%;
+        }
+        .forgot-pass {
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    padding: 15px 25px;
+    border-radius: 30px;
+    display: inline-block;
+    background: black;
+    border: 1px solid white;
+}
+
+        /* Forgot Password */
+        .forgot-pass {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            padding: 15px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .forgot-pass:hover {
+            color: #ffffff;
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+    
+.nav-btn{
+    padding: 15px 30px;
+    background: #151516;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.nav-btn:hover{
+    background: #764ba2;
+}
+
+        /* Right Side - Doctor */
+        .doctor-section {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .doctor-avatar {
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 300% 300%;
+            margin: 0 auto 40px;
+            position: relative;
+            overflow: hidden;
+            animation: avatarGradient 8s ease infinite, avatarPulse 4s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.6s ease;
+            border: 8px solid rgba(255,255,255,0.2);
+            box-shadow: 
+                0 0 80px rgba(102, 126, 234, 0.5),
+                inset 0 0 40px rgba(255,255,255,0.1);
+        }
+
+        @keyframes avatarGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .doctor-avatar::before {
+            content: '👨‍⚕️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 140px;
+            z-index: 2;
+            filter: drop-shadow(0 0 30px rgba(255,255,255,0.8));
+            animation: emojiFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes emojiFloat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -55%) scale(1.1); }
+        }
+
+        .doctor-avatar::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255,255,255,0.4), transparent 30%);
+            animation: shineRotate 4s linear infinite;
+        }
+
+        @keyframes shineRotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .doctor-avatar:hover {
+            transform: scale(1.15) !important;
+            box-shadow: 0 0 120px rgba(102, 126, 234, 0.8);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .doctor-name {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #f0f0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            animation: nameGlow 2.5s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        @keyframes nameGlow {
+            from { filter: drop-shadow(0 0 15px #667eea); }
+            to { filter: drop-shadow(0 0 35px #f093fb); }
+        }
+
+        .doctor-role {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 1;
+            transition: opacity 1.2s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 100px;
+            height: 100px;
+            border: 8px solid rgba(255,255,255,0.2);
+            border-top: 8px solid rgba(255,255,255,0.9);
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            position: relative;
+        }
+
+        .loading-spinner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(transparent, rgba(255,255,255,0.3));
+            animation: spinReverse 1.2s linear infinite;
+        }
+
+        @keyframes spinReverse {
+            100% { transform: rotate(-360deg); }
+        }
+
+        .loading-text {
+            color: rgba(255,255,255,0.95);
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 25px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .login-card {
+                flex-direction: column;
+                gap: 50px;
+                padding: 40px 25px;
+            }
+            .doctor-avatar {
+                width: 300px;
+                height: 300px;
+            }
+            .form-section {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .title { font-size: 32px; }
+            .login-card { padding: 30px 20px; }
+            .logo { width: 80px; height: 80px; font-size: 32px; }
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Health Portal...</div>
+    </div>
+
+    <!-- Premium Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="login-card">
+            <!-- Form Section -->
+            <div class="form-section">
+                <div class="header">
+                    <div class="logo">🏥</div>
+                    <div class="title">Health And Wellness Application</div>
+                    <div class="subtitle">Advanced Health Platform</div>
+                </div>
+
+                <form onsubmit="return false;">
+                    <div class="input-field">
+                        <div class="input-wrapper">
+                            <input type="email" id="email" placeholder="doctor@hospital.com" required>
+                            <span class="input-icon">👨‍⚕️</span>
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <div class="input-wrapper">
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <span class="input-icon">🔒</span>
+                        </div>
+                    </div>
+
+                    <!-- <button type="button" class="login-btn" onclick="login()">
+                        <span class="btn-shine"></span>
+                        🚀 Access Dashboard
+                    </button> -->
+                       <!-- <button type="button" class="login-btn" onclick="window.location.href='dashboard.html'">
+        <i class="fas fa-user-md"></i> 🚀 Acess Dashboard
+    </button> -->
+    <!-- <button type="button" class="login-btn" onclick="login(event)">
+    <span class="btn-shine"></span>
+    🚀 Access Dashboard
+</button> -->
+<!-- <button onclick="window.location.href='dashboard.html'">
+    Access Dashboard 
+</button> -->
+<!-- <button id="dashboardBtn">Access Dashboard</button>
+
+<script>
+document.getElementById("dashboardBtn").addEventListener("click", function() {
+    window.location.href = "dashboard.html";
+});
+<!script -->
+<button id="dashboardBtn" class="forgot-pass"> Access Dashboard</button>
+<script>
+document.getElementById("dashboardBtn").addEventListener("click", function() {
+    window.location.href = "dashboard.html";
+});
+</script>
+
+                    <div class="forgot-pass" onclick="forgotPassword()">Forgot Password?</div>
+
+
+                    <button class="nav-btn" onclick="window.location.href='index.html'">
+    Go TO Home
+</button>
+
+                </form>
+            </div>
+
+            <!-- Doctor Section -->
+            <div class="doctor-section">
+                <div class="doctor-avatar"></div>
+                <div class="doctor-name">Dr. Perfect</div>
+                <div class="doctor-role">Chief Medical Officer</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo credentials
+        const credentials = {
+            'doctor@hospital.com': 'doctor123',
+            'admin@hospital.com': 'admin123',
+            'dr.perfect@medicare.com': 'perfect456'
+        };
+
+        // Initialize
+        window.addEventListener('load', () => {
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 2500);
+
+            createParticles();
+        });
+
+        // Create premium particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 8 + 4 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Login function
+        // async function login() {
+        //     const email = document.getElementById('email').value.trim();
+        //     const password = document.getElementById('password').value;
+        //     const btn = event.target;
+
+        //     if (!email || !password) {
+        //         showNotification('Please fill all fields!', 'error');
+        //         return;
+        //     }
+
+        //     btn.innerHTML = '<div class="loading-spinner" style="width:28px;height:28px;border-width:3px;display:inline-block;vertical-align:middle;margin-right:12px;"></div>Authenticating...';
+        //     btn.disabled = true;
+
+        //     await new Promise(resolve => setTimeout(resolve, 3000));
+
+        //     if (credentials[email] && credentials[email] === password) {
+        //         btn.innerHTML = '✅ Welcome Doctor!';
+        //         setTimeout(() => {
+        //             // Success animation
+        //             document.querySelector('.login-card').style.transform = 'scale(1.1) rotateY(360deg)';
+        //             setTimeout(() => {
+        //                 window.location.href = 'dashboard.html';
+        //             }, 1200);
+        //         }, 1500);
+        //     } else {
+        //         btn.innerHTML = '🚀 Access Dashboard';
+        //         btn.disabled = false;
+        //         showNotification('Invalid credentials!', 'error');
+        //         shakeEffect(btn);
+        //     }
+        // }
+
+        async function login(event) {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const btn = event.target;
+
+    if (!email || !password) {
+        showNotification('Please fill all fields!', 'error');
+        return;
+    }
+
+    btn.innerHTML = 'Authenticating...';
+    btn.disabled = true;
+
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    if (credentials[email] && credentials[email] === password) {
+        btn.innerHTML = '✅ Welcome Doctor!';
+
+        setTimeout(() => {
+            window.location.href = 'dashboard.html';
+        }, 1000);
+
+    } else {
+        btn.innerHTML = '🚀 Access Dashboard';
+        btn.disabled = false;
+        showNotification('Invalid credentials!', 'error');
+        shakeEffect(btn);
+    }
+}
+
+        function forgotPassword() {
+            showNotification('Password reset link sent to your email!', 'success');
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 40px;
+                right: 40px;
+                padding: 25px 35px;
+                border-radius: 20px;
+                color: white;
+                font-weight: 700;
+                z-index: 1000;
+                transform: translateX(450px);
+                animation: slideInRight 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+                background: linear-gradient(135deg, ${type === 'error' ? '#ff6b6b' : '#667eea'} 0%, ${type === 'error' ? '#ee5a52' : '#764ba2'} 100%);
+                box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255,255,255,0.2);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards';
+                setTimeout(() => notification.remove(), 600);
+            }, 4000);
+        }
+
+        function shakeEffect(element) {
+            element.style.animation = 'shake 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            setTimeout(() => {
+                element.style.animation = '';
+            }, 600);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') login();
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(450px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(450px); opacity: 0; }
+            }
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+                20%, 40%, 60%, 80% { transform: translateX(8px); }
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+</body>
+</html>
